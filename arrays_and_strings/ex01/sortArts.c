@@ -14,17 +14,23 @@
 
 int     partition(struct s_art **arts, int low, int high){
     struct s_art    *piv = arts[low];
-    int             j = low - 1;
+    int             i = low;
+    int             j = high;
 
-    for (int i = low; i < high; i++){
-        if (strcmp(arts[i]->name, piv->name) <= 0){
-            j++;
-            struct s_art    *tmp = arts[i];
+    while (i < j){
+        while (strcmp(arts[i]->name, piv->name) < 0)
+            i++;
+        while (strcmp(arts[j]->name, piv->name) > 0)
+            j--;
+        if (i < j){
+            struct s_art *tmp = arts[i];
             arts[i] = arts[j];
-            arts[j] = tmp;        
+            arts[j] = tmp;
+            if (!strcmp(arts[i]->name, piv->name))
+                j--;
         }
     }
-    return j + 1;
+    return j;
 }
 
 void    quickSort(struct s_art **arts, int low, int high){
@@ -41,5 +47,5 @@ void    sortArts(struct s_art **arts)
 
     while (arts[i])
         i++;
-    quickSort(arts, 0, i);
+    quickSort(arts, 0, i - 1);
 }
