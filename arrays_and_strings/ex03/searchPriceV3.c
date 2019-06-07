@@ -40,7 +40,7 @@ size_t             hash(char *key){
 		if (g != 0) hashVal ^= g >> 24;
 		hashVal &= ~g;
 	}
-	return hashVal % 5;	
+	return hashVal % 10000;	
 }
 
 struct s_dict   *dictInit(int capacity){
